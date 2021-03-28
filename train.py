@@ -49,3 +49,4 @@ def train(input_dir, model, lc, help):
         pickle.dump(chain, output)
 
 train()
+

@@ -40,3 +40,4 @@ def generate(model, seed, length, output, help):
         f.close()
 
 generate()
+
