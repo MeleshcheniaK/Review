@@ -11,7 +11,7 @@
 >	- --output - необязательный аргумент. Файл, в который будет записан результат. Если аргумент отсутствует, выводить в stdout.
 Запускайте файл и наслаждайтесь результатом)
 ##### Пример запуска:
->	python train.py --input-dir Joker.txt --model model.txt --lc 1
->	python generate.py --model model.txt --seed I --length 20 --output result.txt	
-	
-	
+-	git clone https://github.com/MeleshcheniaK/Review.git
+-	cd Review
+-	python train.py --input-dir Joker.txt --model model.txt --lc 1
+-	python generate.py --model model.txt --seed I --length 20 --output result.txt	
