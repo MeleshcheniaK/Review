@@ -4,7 +4,7 @@ import pickle
 import re
 
 
-# Генератор строк из текста
+# Получение строк из текста
 def strings(name):
     if name == "stdin":
         yield input()

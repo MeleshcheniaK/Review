@@ -25,7 +25,7 @@ def generate(model, seed, length, output):
     with open(model, 'rb') as file:
         mod = pickle.load(file)
 
-    # Выбор первого слова
+    # Выбор начального слова
     if seed in mod.keys():
         first_word = np.random.choice(list(mod[seed].keys()))
     else:
