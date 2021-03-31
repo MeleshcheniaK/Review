@@ -22,7 +22,7 @@ python generate.py --model model.txt --seed I --length 20 --output result.txt
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
 python train.py --input-dir Чужой против хищника.txt --model model.txt --lc 1
-python generate.py --model model.txt --seed I --length 20 --output result.txt	
+python generate.py --model model.txt --seed я --length 20 --output result.txt	
 ```
 *Результат:*
 ```
