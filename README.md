@@ -24,6 +24,6 @@ cd Review
 python train.py --input-dir Чужой против хищника.txt --model model.txt --lc 1
 python generate.py --model model.txt --seed I --length 20 --output result.txt	
 ```
-*Пример работы*
+*Пример работы:*
 ![Один интересный пример](https://github.com/MeleshcheniaK/Review/blob/div/Results/Example.jpg)
 >*Примечание: Для запуска подойдёт любой текстовый файл, примеры для русского и английского текста различаются только названиями исходников*
