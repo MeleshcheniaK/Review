@@ -36,8 +36,8 @@ def generate(model, seed, length, output):
 
     # Создание цепи нужной длины(по одному слову)
     while len(test_chain) < length:
-        words = list(mod[test_chain[-1]].values())
-        probability = [float(word) / sum(words) for word in words]
+        options = list(mod[test_chain[-1]].values())
+        probability = [float(word) / sum(options) for word in options]
         res = np.random.choice(words, 1, True, probability)
         test_chain.append(res[0])
 
