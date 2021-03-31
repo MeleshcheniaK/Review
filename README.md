@@ -13,16 +13,17 @@
 ##### Пример запуска:
 *Для английского текста*
 ```
-	git clone https://github.com/MeleshcheniaK/Review.git
-	cd Review
-	python train.py --input-dir Joker.txt --model model.txt --lc 1
-	python generate.py --model model.txt --seed I --length 20 --output result.txt	
+git clone https://github.com/MeleshcheniaK/Review.git
+cd Review
+python train.py --input-dir Joker.txt --model model.txt --lc 1
+python generate.py --model model.txt --seed I --length 20 --output result.txt	
 ```
 *Для русского текста*
 ```
-	git clone https://github.com/MeleshcheniaK/Review.git
-	cd Review
-	python train.py --input-dir Чужой против хищника.txt --model model.txt --lc 1
-	python generate.py --model model.txt --seed I --length 20 --output result.txt	
+git clone https://github.com/MeleshcheniaK/Review.git
+cd Review
+python train.py --input-dir Чужой против хищника.txt --model model.txt --lc 1
+python generate.py --model model.txt --seed I --length 20 --output result.txt	
 ```
+[Один интересный пример]https://github.com/MeleshcheniaK/Review/blob/div/Results/Example.jpg
 *Примечание: Для запуска подойдёт любой текстовый файл, примеры для русского и английского текста различаются только названиями исходников*
