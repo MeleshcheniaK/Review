@@ -36,9 +36,9 @@ def generate(model, seed, length, output):
 
     # Создание цепи нужной длины(по одному слову)
     while len(test_chain) < length:
-        options = list(mod[test_chain[-1]].values())
-        probability = [float(word) / sum(options) for word in options]
-        res = np.random.choice(words, 1, True, probability)
+        next_words_counts = list(mod[test_chain[-1]].values())
+        next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
+        res = np.random.choice(next_words_counts, 1, True, next_words_frequency)
         test_chain.append(res[0])
 
     # Объединение слов в текст
