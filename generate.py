@@ -1,13 +1,14 @@
 import click
 import numpy as np
-import pickle
+import dill
 import re
+
 from textblob import TextBlob
 
 
 @click.command()
 @click.option('--model', required=True)
-@click.option('--seed', default='.', required=False)
+@click.option('--seed', default='', required=False)
 @click.option('--length', required=True, type=int)
 @click.option('--output', default='stdout', required=False)
 def generate(model, seed, length, output):
@@ -23,11 +24,11 @@ def generate(model, seed, length, output):
     """
     # Загрузка модели из файла
     with open(model, 'rb') as file:
-        mod = pickle.load(file)
+        mod = dill.load(file)
 
     # Выбор начального слова
     if seed in mod.keys():
-        first_word = np.random.choice(list(mod[seed].keys()))
+        first_word = seed
     else:
         first_word = np.random.choice(list(mod.keys()))
 
@@ -36,9 +37,10 @@ def generate(model, seed, length, output):
 
     # Создание цепи нужной длины(по одному слову)
     while len(test_chain) < length:
-        words = list(mod[test_chain[-1]].values())
-        probability = [float(word) / sum(words) for word in words]
-        res = np.random.choice(words, 1, True, probability)
+        next_words = list(mod[test_chain[-1]].keys())
+        next_words_counts = list(mod[test_chain[-1]].values())
+        next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
+        res = np.random.choice(next_words, 1, True, next_words_frequency)
         test_chain.append(res[0])
 
     # Объединение слов в текст
