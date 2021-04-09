@@ -23,7 +23,8 @@ def clean(string):
     string = re.sub(' +', ' ', string)
     string = re.sub('\.+|\?|!', ' .', string)
     string = re.sub('[,()]', ' ', string)
-    string = string[:-1] # Удаление символа \n
+    # Удаление символа \n
+    string = string[:-1]
     string = re.split('; |, | ', string)
     return string
 
@@ -49,8 +50,10 @@ def train(input_dir, model, lc):
         # Приведение текста к lowercase
         if lc:
             string = string.lower()
-        
-        # Создание строки для обработки (первое слово это конец предыдущей строки или пустой элемент, если строка первая)
+
+        # Создание строки для обработки
+        # (первое слово это конец предыдущей строки или пустой элемент,
+        # если строка первая)
         line = [start] + clean(string)
 
         # Создание словаря из пар слов
