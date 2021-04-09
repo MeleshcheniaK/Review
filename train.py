@@ -50,7 +50,7 @@ def train(input_dir, model, lc):
         if lc:
             string = string.lower()
 
-        line = [start] + clean(string)
+        line = clean(string)
 
         # Создание словаря из пар слов
         for i in range(len(line) - 1):
