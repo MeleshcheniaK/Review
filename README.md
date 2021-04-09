@@ -1,5 +1,4 @@
 ## Данная программа предназначена для генерации текста на основе цепей Маркова.
-*(Цепи Маркова — это вероятности получения события на основе предыдущего события. Таким образом можно генерировать текст.)*
 #### Для создания модели запустите файл *train.py* со следующими флагами:
 >	- --input-dir - путь к директории, в которой лежит коллекция документов(*текстовых файлов*), не обязательный аргумент, по умолчанию stdin.(*Для корректного использования добавляйте файлы с достаточным количеством слов*)
 >	- --model - путь к файлу, в который сохраняется модель.
@@ -23,7 +22,7 @@ python generate.py --model model.txt --seed I --length 20 --output result.txt
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
 python train.py --input-dir Examples/Alien vs Predator.txt --model model.txt --lc 1
-python generate.py --model model.txt --seed я --length 20 --output result.txt	
+python generate.py --model model.txt --length 20 --output result.txt	
 ```
 *Результат:*
 ```
