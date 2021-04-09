@@ -23,7 +23,7 @@ def clean(string):
     string = re.sub(' +', ' ', string)
     string = re.sub('\.+|\?|!', ' .', string)
     string = re.sub('[,()]', ' ', string)
-    string = string[:-1]
+    string = string[:-1] # Удаление символа \n
     string = re.split('; |, | ', string)
     return string
 
