@@ -8,8 +8,8 @@ from collections import defaultdict
 
 
 # Получение строк из текста
-def strings(name):
-    if name == "stdin":
+def get_strings(name):
+    if name == 'stdin':
         for string in sys.stdin:
             yield string
     else:
@@ -42,10 +42,10 @@ def train(input_dir, model, lc):
     :param lc: Приводить ли текст к lowercase.
     """
     chain = defaultdict(lambda: defaultdict(int))
-    start = ""
+    start = ''
 
     # Считывание текста из файла
-    for string in strings(input_dir):
+    for string in get_strings(input_dir):
         # Приведение текста к lowercase
         if lc:
             string = string.lower()
