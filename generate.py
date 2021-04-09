@@ -54,5 +54,6 @@ def generate(model, seed, length, output):
         with open(output, 'w') as file:
             file.write(sentence)
 
+            
 # Вызов функции
 generate()
