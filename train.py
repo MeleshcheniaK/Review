@@ -49,8 +49,9 @@ def train(input_dir, model, lc):
         # Приведение текста к lowercase
         if lc:
             string = string.lower()
-
-        line = clean(string)
+        
+        # Создание строки для обработки (первое слово это конец предыдущей строки или пустой элемент, если строка первая)
+        line = [start] + clean(string)
 
         # Создание словаря из пар слов
         for i in range(len(line) - 1):
