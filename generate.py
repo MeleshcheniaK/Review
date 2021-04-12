@@ -48,9 +48,18 @@ def generate(model, seed, length, output):
     sentence = ' '.join(test_chain)
     sentence = re.sub(' \.', '.', sentence)
 
+    point = sentence.find(".")
+    # Большая буква в начале предложения
+    while -1 < point < len(sentence) - 2:
+        first_sentence_letter = sentence[point + 2].upper()
+        sentence = sentence[:point + 2] + first_sentence_letter + sentence[point + 3:]
+        point = sentence.find(".", point + 2)
+
+    # Первый символ - большая буква
+    sentence = sentence[0].upper() + sentence[1:]
     # Вывод в файл из stdout
     if output == 'stdout':
-        print(TextBlob(sentence.capitalize()))
+        print(TextBlob(sentence))
     else:
         with open(output, 'w') as file:
             file.write(sentence)
