@@ -1,8 +1,8 @@
-import click
-import numpy as np
-import dill
 import re
 
+import click
+import dill
+import numpy as np
 from textblob import TextBlob
 
 
@@ -22,6 +22,7 @@ def generate(model, seed, length, output):
     :param length: Длина генерируемой последовательности
     :param output: Файл для вывода
     """
+
     # Загрузка модели из файла
     with open(model, 'rb') as file:
         mod = dill.load(file)
@@ -40,8 +41,8 @@ def generate(model, seed, length, output):
         next_words = list(mod[test_chain[-1]].keys())
         next_words_counts = list(mod[test_chain[-1]].values())
         next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
-        res = np.random.choice(next_words, 1, True, next_words_frequency)
-        test_chain.append(res[0])
+        res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
+        test_chain += next_words[res[0]]
 
     # Объединение слов в текст
     sentence = ' '.join(test_chain)
@@ -53,6 +54,7 @@ def generate(model, seed, length, output):
     else:
         with open(output, 'w') as file:
             file.write(sentence)
+
 
 # Вызов функции
 generate()

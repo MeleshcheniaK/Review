@@ -20,9 +20,11 @@ def get_strings(name):
 
 # Чистка строки от лишних символов
 def clean(string):
-    string = re.sub(' +', ' ', string)
-    string = re.sub('\.+|\?|!', ' .', string)
+    string = re.sub('\.+|\?|!', ' ', string)
     string = re.sub('[,()]', ' ', string)
+    string = string[:-1]
+    string = string[:-1]  # Удаление символа \n
+    string = re.sub(' +', ' ', string)
     string = string[:-1] # Удаление символа \n
     string = re.split('; |, | ', string)
     return string
@@ -32,7 +34,8 @@ def clean(string):
 @click.option('--input-dir', default='stdin')
 @click.option('--model')
 @click.option('--lc', default=1, required=False)
-def train(input_dir, model, lc):
+@click.option('--ngram', default=2, required=False)
+def train(input_dir, model, lc, ngram):
     """
     Обучает модель для генерации текста на основе цепей Маркова.
     Файл из которого загружается текстовый источник -- input_dir.
@@ -40,8 +43,11 @@ def train(input_dir, model, lc):
     :param input_dir: Исходник для обучения.
     :param model: Файл для записи модели.
     :param lc: Приводить ли текст к lowercase.
+    :param ngram: Для построения n-граммных моделей
     """
     chain = defaultdict(lambda: defaultdict(int))
+    start = ""
+    start = []
     start = ''
 
     # Считывание текста из файла
@@ -53,13 +59,16 @@ def train(input_dir, model, lc):
         # Создание строки для обработки (первое слово это конец предыдущей строки или пустой элемент, если строка первая)
         line = [start] + clean(string)
 
-        # Создание словаря из пар слов
-        for i in range(len(line) - 1):
-            chain[line[i]][line[i + 1]] += 1
+        # Создание строки для обработки (первое слово это конец предыдущей строки или пустой элемент, если строка первая)
+        line = start + clean(string)
 
-        # Сохранение последнего слова для новой линии
-        if len(line) > 0:
-            start = line[-1]
+        # Создание словаря из пар слов
+        for i in range(len(line) - ngram):
+            test_tuple = tuple([line[j+i] for j in range(1, ngram + 1)])
+            chain[line[i]][test_tuple] += 1
+
+        # Сохранение последних слов для новой линии
+        start = line[-1 * (min(len(line), ngram)-1)::]
 
     # Запись модели в файл
     with open(model, 'wb') as output:
