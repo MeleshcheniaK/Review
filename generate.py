@@ -8,7 +8,7 @@ from textblob import TextBlob
 
 @click.command()
 @click.option('--model', required=True)
-@click.option('--seed', default='.', required=False)
+@click.option('--seed', default='', required=False)
 @click.option('--length', required=True, type=int)
 @click.option('--output', default='stdout', required=False)
 def generate(model, seed, length, output):
