@@ -1,5 +1,4 @@
 import click
-import copyreg
 import dill
 import re
 import sys
