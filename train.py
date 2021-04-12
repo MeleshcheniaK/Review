@@ -8,8 +8,8 @@ from collections import defaultdict
 
 
 # Получение строк из текста
-def strings(name):
-    if name == "stdin":
+def get_strings(name):
+    if name == 'stdin':
         for string in sys.stdin:
             yield string
     else:
