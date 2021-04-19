@@ -32,21 +32,22 @@ def generate(model_file, seed, length, output):
     if seed in model.keys():
         first_word = seed
     else:
+        print("Слово", seed, "не найдено! Включен автоподбор.")
         first_word = np.random.choice(list(model.keys()))
 
     res = []
-    test_chain = [first_word]
+    chain = [first_word]
 
     # Создание цепи нужной длины(по одному слову)
-    while len(test_chain) < length:
-        next_words = list(model[test_chain[-1]].keys())
-        next_words_counts = list(model[test_chain[-1]].values())
+    while len(chain) < length:
+        next_words = list(model[chain[-1]].keys())
+        next_words_counts = list(model[chain[-1]].values())
         next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
         res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
-        test_chain += next_words[res[0]]
+        chain += next_words[res[0]]
 
     # Объединение слов в текст
-    sentence = ' '.join(test_chain)
+    sentence = ' '.join(chain)
     sentence = re.sub(' \.', '.', sentence)
 
     point_index = sentence.find('.')
