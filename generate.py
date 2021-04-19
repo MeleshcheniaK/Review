@@ -1,5 +1,6 @@
 import click
 import dill
+import global_names
 import numpy as np
 import re
 
@@ -50,10 +51,10 @@ def generate(model, seed, length, output):
 
     point = sentence.find('.')
     # Большая буква в начале предложения
-    while -1 < point < len(sentence) - 2:
-        first_sentence_letter = sentence[point + 2].upper()
-        sentence = sentence[:point + 2] + first_sentence_letter + sentence[point + 3:]
-        point = sentence.find('.', point + 2)
+    while -1 < point < len(sentence) - global_names.SHIFT:
+        first_sentence_letter = sentence[point + global_names.SHIFT].upper()
+        sentence = sentence[:point + global_names.SHIFT] + first_sentence_letter + sentence[point + global_names.SHIFT + 1:]
+        point = sentence.find('.', point + global_names.SHIFT)
 
     # Первый символ - большая буква
     sentence = sentence[0].upper() + sentence[1:]
