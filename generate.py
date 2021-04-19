@@ -49,12 +49,12 @@ def generate(model, seed, length, output):
     sentence = ' '.join(test_chain)
     sentence = re.sub(' \.', '.', sentence)
 
-    point = sentence.find('.')
+    point_index = sentence.find('.')
     # Большая буква в начале предложения
-    while -1 < point < len(sentence) - global_names.SHIFT:
-        first_sentence_letter = sentence[point + global_names.SHIFT].upper()
-        sentence = sentence[:point + global_names.SHIFT] + first_sentence_letter + sentence[point + global_names.SHIFT + 1:]
-        point = sentence.find('.', point + global_names.SHIFT)
+    while -1 < point_index < len(sentence) - global_names.SHIFT:
+        first_sentence_letter = sentence[point_index + global_names.SHIFT].upper()
+        sentence = sentence[:point_index + global_names.SHIFT] + first_sentence_letter + sentence[point_index + global_names.SHIFT + 1:]
+        point_index = sentence.find('.', point_index + global_names.SHIFT)
 
     # Первый символ - большая буква
     sentence = sentence[0].upper() + sentence[1:]
