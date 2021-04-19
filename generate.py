@@ -1,8 +1,8 @@
-import re
-
 import click
 import dill
 import numpy as np
+import re
+
 from textblob import TextBlob
 
 
