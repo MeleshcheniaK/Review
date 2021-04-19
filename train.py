@@ -62,7 +62,8 @@ def train(input_dir, model, lc, ngram):
             chain[line[i]][test_tuple] += 1
 
         # Сохранение последних слов для новой линии
-        start = line[-1 * (min(len(line), ngram) - 1)::]
+        n_last_words = min(len(line), ngram) - 1
+        start = line[-n_last_words:]
 
     # Запись модели в файл
     with open(model, 'wb') as output:
