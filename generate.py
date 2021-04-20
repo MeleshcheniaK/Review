@@ -55,7 +55,7 @@ def generate(model_file, seed, length, output):
     while -1 < point_index < len(sentence) - global_names.SHIFT:
         split_index = point_index+global_names.SHIFT
         first_sentence_letter = sentence[split_index].upper()
-        sentence = setence[:split_index] + first_sentence_letter + sentence[split_index + 1:]
+        sentence = sentence[:split_index] + first_sentence_letter + sentence[split_index + 1:]
         point_index = sentence.find('.', point_index + global_names.SHIFT)
 
     # Первый символ - большая буква
