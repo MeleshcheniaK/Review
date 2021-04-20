@@ -32,7 +32,7 @@ def generate(model_file, seed, length, output):
     if seed in model.keys():
         first_word = seed
     else:
-        print("Слово", seed, "не найдено! Включен автоподбор.")
+        print(f"Слово { seed} не найдено! Включен автоподбор.")
         first_word = np.random.choice(list(model.keys()))
 
     res = []
@@ -65,7 +65,7 @@ def generate(model_file, seed, length, output):
         print(TextBlob(sentence))
     else:
         with open(output, 'w') as file:
-            file.write(sentence)
+            file.write(TextBlob(sentence))
 
 
 # Вызов функции
