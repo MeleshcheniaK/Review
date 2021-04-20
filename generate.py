@@ -40,7 +40,7 @@ def generate(model_file, seed, length, output):
     chain = [first_word]
 
     # Создание цепи нужной длины(по одному слову)
-    while len(chain) < length:
+    while len(chain) <= length + chain.count('.'):
         next_words = list(model[chain[-1]].keys())
         next_words_counts = list(model[chain[-1]].values())
         next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
