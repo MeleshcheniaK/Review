@@ -6,6 +6,7 @@
 >	- --input-dir - путь к директории, в которой лежит коллекция документов(*текстовых файлов*), не обязательный аргумент, по умолчанию stdin.(*Для корректного использования добавляйте файлы с достаточным количеством слов*)
 >	- --model - путь к файлу, в который сохраняется модель.
 >	- --lc - Приводит тексты к lowercase, необязательный аргумент.
+>	- --ngram - Строит модель на основе n-грамм, необязательный аргумент. По умолчанию 2.
 #### Для построения текста по уже существующей модели запустите файл *generate.py* со следующими флагами:
 >	- --model - путь к файлу, из которого загружается модель.
 >	- --seed - необязательный аргумент. Начальное слово. Если не указано, выбираем слово случайно из всех слов (не учитывая частоты).
@@ -16,15 +17,15 @@
 ```
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
-python train.py --input-dir Examples/Joker.txt --model model.txt --lc 1
-python generate.py --model model.txt --seed I --length 20 --output result.txt	
+python train.py --input-dir Sources/Joker.txt --model model.txt --lc 0
+python generate.py --model_file model.txt --seed I --length 20 --output result.txt	
 ```
 *Запуск примера с русскоязычным корпусом:*
 ```
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
-python train.py --input-dir Examples/Alien vs Predator.txt --model model.txt --lc 1
-python generate.py --model model.txt --length 20 --output result.txt	
+python train.py --input-dir Sources/Alien_vs_Predator.txt --model model.txt --lc 1 --ngram 1
+python generate.py --model_file model.txt --length 20 --output result.txt	
 ```
 *Результат:*
 ```

@@ -1,17 +1,18 @@
 import click
-import numpy as np
 import dill
+import global_names
+import numpy as np
 import re
 
 from textblob import TextBlob
 
 
 @click.command()
-@click.option('--model', required=True)
+@click.option('--model_file', required=True)
 @click.option('--seed', default='', required=False)
 @click.option('--length', required=True, type=int)
 @click.option('--output', default='stdout', required=False)
-def generate(model, seed, length, output):
+def generate(model_file, seed, length, output):
     """
     Функция генерирует последовательность слов длины length.
     Словарь находится в model.
@@ -22,38 +23,53 @@ def generate(model, seed, length, output):
     :param length: Длина генерируемой последовательности
     :param output: Файл для вывода
     """
+
     # Загрузка модели из файла
-    with open(model, 'rb') as file:
-        mod = dill.load(file)
+    with open(model_file, 'rb') as stdin_file:
+        model = dill.load(stdin_file)
 
     # Выбор начального слова
-    if seed in mod.keys():
+    if seed in model.keys():
         first_word = seed
     else:
-        first_word = np.random.choice(list(mod.keys()))
+        if seed != '':
+            print(f"Слово {seed} не найдено! Включен автоподбор.")
+        first_word = np.random.choice(list(model.keys()))
 
     res = []
-    test_chain = [first_word]
+    chain = [first_word]
 
     # Создание цепи нужной длины(по одному слову)
-    while len(test_chain) < length:
-        next_words = list(mod[test_chain[-1]].keys())
-        next_words_counts = list(mod[test_chain[-1]].values())
+    while len(chain) <= length + chain.count('.'):
+        next_words = list(model[chain[-1]].keys())
+        next_words_counts = list(model[chain[-1]].values())
         next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
-        res = np.random.choice(next_words, 1, True, next_words_frequency)
-        test_chain.append(res[0])
+        res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
+        chain += next_words[res[0]]
 
+    # Точка не учитывается как слово
+    chain = chain[:length + chain.count('.') + 1]
     # Объединение слов в текст
-    sentence = ' '.join(test_chain)
+    sentence = ' '.join(chain)
     sentence = re.sub(' \.', '.', sentence)
 
+    point_index = sentence.find('.')
+    # Большая буква в начале предложения
+    while -1 < point_index < len(sentence) - global_names.SHIFT:
+        split_index = point_index+global_names.SHIFT
+        first_sentence_letter = sentence[split_index].upper()
+        sentence = sentence[:split_index] + first_sentence_letter + sentence[split_index + 1:]
+        point_index = sentence.find('.', point_index + global_names.SHIFT)
+
+    # Первый символ - большая буква
+    sentence = sentence[0].upper() + sentence[1:]
     # Вывод в файл из stdout
     if output == 'stdout':
-        print(TextBlob(sentence.capitalize()))
+        print(TextBlob(sentence))
     else:
         with open(output, 'w') as file:
-            file.write(sentence)
+            file.write(str(TextBlob(sentence)))
 
-            
+
 # Вызов функции
 generate()
