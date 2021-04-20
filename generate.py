@@ -47,11 +47,11 @@ def generate(model_file, seed, length, output):
         res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
         chain += next_words[res[0]]
 
-    chain = chain[:min(length + chain.count('.') + 1, len(chain))]    
+    chain = chain[:min(length + chain.count('.') + 1, len(chain))]
     # Объединение слов в текст
     sentence = ' '.join(chain)
     sentence = re.sub(' \.', '.', sentence)
-    
+
     point_index = sentence.find('.')
     # Большая буква в начале предложения
     while -1 < point_index < len(sentence) - global_names.SHIFT:
