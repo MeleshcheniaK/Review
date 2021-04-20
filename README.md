@@ -25,7 +25,7 @@ python generate.py --model model.txt --seed I --length 20 --output result.txt
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
 python train.py --input-dir Sources/Alien_vs_Predator.txt --model model.txt --lc 1 --ngram 1
-python generate.py --model model.txt --length 20 --output result.txt	
+python generate.py --model_file model.txt --length 20 --output result.txt	
 ```
 *Результат:*
 ```
