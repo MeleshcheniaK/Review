@@ -65,7 +65,7 @@ def generate(model_file, seed, length, output):
         print(TextBlob(sentence))
     else:
         with open(output, 'w') as file:
-            file.write(TextBlob(sentence))
+            file.write(str(TextBlob(sentence)))
 
 
 # Вызов функции
