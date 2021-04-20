@@ -47,7 +47,8 @@ def generate(model_file, seed, length, output):
         res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
         chain += next_words[res[0]]
 
-    chain = chain[:min(length + chain.count('.') + 1, len(chain))]
+    # Точка не учитывается как слово
+    chain = chain[:length + chain.count('.') + 1]
     # Объединение слов в текст
     sentence = ' '.join(chain)
     sentence = re.sub(' \.', '.', sentence)
