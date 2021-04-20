@@ -53,8 +53,9 @@ def generate(model_file, seed, length, output):
     point_index = sentence.find('.')
     # Большая буква в начале предложения
     while -1 < point_index < len(sentence) - global_names.SHIFT:
-        first_sentence_letter = sentence[point_index + global_names.SHIFT].upper()
-        sentence = sentence[:point_index+global_names.SHIFT]+first_sentence_letter+sentence[point_index+global_names.SHIFT+1:]
+        split_index = point_index+global_names.SHIFT
+        first_sentence_letter = sentence[split_index].upper()
+        sentence = setence[:split_index] + first_sentence_letter + sentence[split_index + 1:]
         point_index = sentence.find('.', point_index + global_names.SHIFT)
 
     # Первый символ - большая буква
