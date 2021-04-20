@@ -17,7 +17,7 @@
 ```
 git clone https://github.com/MeleshcheniaK/Review.git
 cd Review
-python train.py --input-dir Sources/Joker.txt --model model.txt --lc 1
+python train.py --input-dir Sources/Joker.txt --model model.txt --lc 0
 python generate.py --model_file model.txt --seed I --length 20 --output result.txt	
 ```
 *Запуск примера с русскоязычным корпусом:*
