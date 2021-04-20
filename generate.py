@@ -69,4 +69,3 @@ def generate(model_file, seed, length, output):
 
 # Вызов функции
 generate()
-
