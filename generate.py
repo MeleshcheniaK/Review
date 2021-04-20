@@ -8,11 +8,11 @@ from textblob import TextBlob
 
 
 @click.command()
-@click.option('--model', required=True)
+@click.option('--model_file', required=True)
 @click.option('--seed', default='', required=False)
 @click.option('--length', required=True, type=int)
 @click.option('--output', default='stdout', required=False)
-def generate(model, seed, length, output):
+def generate(model_file, seed, length, output):
     """
     Функция генерирует последовательность слов длины length.
     Словарь находится в model.
@@ -25,23 +25,23 @@ def generate(model, seed, length, output):
     """
 
     # Загрузка модели из файла
-    with open(model, 'rb') as stdin_file:
-        working_model = dill.load(stdin_file)
+    with open(model_file, 'rb') as stdin_file:
+        model = dill.load(stdin_file)
 
     # Выбор начального слова
-    if seed in working_model.keys():
+    if seed in model.keys():
         first_word = seed
     else:
         print("Слово", seed, "не найдено! Включен автоподбор.")
-        first_word = np.random.choice(list(working_model.keys()))
+        first_word = np.random.choice(list(model.keys()))
 
     res = []
     chain = [first_word]
 
     # Создание цепи нужной длины(по одному слову)
     while len(chain) < length:
-        next_words = list(working_model[chain[-1]].keys())
-        next_words_counts = list(working_model[chain[-1]].values())
+        next_words = list(model[chain[-1]].keys())
+        next_words_counts = list(model[chain[-1]].values())
         next_words_frequency = [float(count) / sum(next_words_counts) for count in next_words_counts]
         res = np.random.choice(range(len(next_words)), 1, True, next_words_frequency)
         chain += next_words[res[0]]
